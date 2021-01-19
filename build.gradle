@@ -1,0 +1,28 @@
+buildscript {
+    repositories {
+        maven { url "https://jitpack.io" }
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.github.EazyFTW:GradleDiscordPlugin:build-8'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.eazyftw.gradlediscordplugin'
+
+meta {
+    name = "TechHangoutDiscordBot"
+    mainClass = "com.eazyftw.techhangout.TechHangoutBot"
+
+    version = "1.0.0"
+    jdaVersion = "4.2.0_227"
+
+    dependencies = ["implementation#com.github.adamint:patreon-java:-SNAPSHOT"]
+    repositories = ["https://jitpack.io"]
+}
+
+compileJava {
+    options.encoding = "UTF-8"
+}
