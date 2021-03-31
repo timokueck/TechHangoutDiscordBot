@@ -5,6 +5,7 @@ import com.eazyftw.techhangout.logs.ServerLogs;
 import com.eazyftw.techhangout.module.Module;
 import com.eazyftw.techhangout.objects.Requirement;
 import com.eazyftw.techhangout.util.TechEmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.guild.GuildBanEvent;
