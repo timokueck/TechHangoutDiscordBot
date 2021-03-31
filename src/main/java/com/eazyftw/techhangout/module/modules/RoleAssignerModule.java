@@ -112,15 +112,18 @@ public class RoleAssignerModule extends Module {
                 if(member == null)
                     return;
 
+                PluginLabModule.givePluginLabAccess(member, r.getName());
                 r.getGuild().addRoleToMember(member, r).complete();
                 TechHangoutBot.log("Role » Added " + r.getName() + " (" + all.getEffectiveName() + ") on " + r.getGuild().getName() + "!");
             });
 
             rolesToRemove.forEach(r -> {
                 Member member = r.getGuild().getMemberById(all.getId());
+
                 if(member == null)
                     return;
 
+                PluginLabModule.removePluginLabAccess(member, r.getName());
                 r.getGuild().removeRoleFromMember(member, r).complete();
                 TechHangoutBot.log("Role » Removed " + r.getName() + " (" + all.getEffectiveName() + ") on " + r.getGuild().getName() + "!");
             });
