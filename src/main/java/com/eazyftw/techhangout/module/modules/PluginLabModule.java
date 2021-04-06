@@ -3,6 +3,7 @@ package com.eazyftw.techhangout.module.modules;
 import com.eazyftw.techhangout.TechHangoutBot;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.PermissionOverride;
 import net.dv8tion.jda.api.entities.TextChannel;
 
 public class PluginLabModule {
@@ -15,15 +16,24 @@ public class PluginLabModule {
     private static TextChannel uBoardLab = TechHangoutBot.getSupportGuild().getTextChannelById(826219540915421274L);
     private static TextChannel insaneShopsLab = TechHangoutBot.getSupportGuild().getTextChannelById(811407275096014848L);
 
+
     public static void givePluginLabAccess(Member member, String reward) {
+        PermissionOverride uPunOverride = uPunLab.getPermissionOverride(member);
+        PermissionOverride uRegionsOverride = uPunLab.getPermissionOverride(member);
+        PermissionOverride uPermsOverride = uPermsLab.getPermissionOverride(member);
+        PermissionOverride uCustomizerOverride = uCLab.getPermissionOverride(member);
+        PermissionOverride uEcoOverride = uEcoLab.getPermissionOverride(member);
+        PermissionOverride insaneShopsOverride = insaneShopsLab.getPermissionOverride(member);
+        PermissionOverride uBoardoverride = uBoardLab.getPermissionOverride(member);
+
         if(reward.equalsIgnoreCase("Traveler") && (uPunLab != null & uRegionsLab != null)) {
-            if(!member.hasAccess(uPunLab)) {
-                uPunLab.createPermissionOverride(member)
+            if(uPunOverride == null) {
+                uPunLab.createPermissionOverride(member).reset()
                         .setAllow(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION)
                         .queue();
             }
 
-            if(!member.hasAccess(uCLab)) {
+            if(uRegionsOverride == null) {
                 uRegionsLab.createPermissionOverride(member).reset()
                         .setAllow(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION)
                         .queue();
@@ -31,13 +41,13 @@ public class PluginLabModule {
         }
 
         if(reward.equalsIgnoreCase("Adventurer") && (uPermsLab != null && uCLab != null)) {
-            if(!member.hasAccess(uPermsLab)) {
+            if(uPermsOverride == null) {
                 uPermsLab.createPermissionOverride(member)
                         .setAllow(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION)
                         .queue();
             }
 
-            if(!member.hasAccess(uCLab)) {
+            if(uCustomizerOverride == null) {
                 uCLab.createPermissionOverride(member).reset()
                         .setAllow(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION)
                         .queue();
@@ -45,18 +55,18 @@ public class PluginLabModule {
         }
 
         if(reward.equalsIgnoreCase("Pioneer") && (uEcoLab != null & insaneShopsLab != null && uBoardLab != null)) {
-            if(!member.hasAccess(uEcoLab)) {
+            if(uEcoOverride == null) {
                 uEcoLab.createPermissionOverride(member)
                         .setAllow(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION)
                         .queue();
             }
 
-            if(!member.hasAccess(insaneShopsLab)) {
+            if(insaneShopsOverride == null) {
                 insaneShopsLab.createPermissionOverride(member).reset()
                         .setAllow(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION)
                         .queue();
             }
-            if(!member.hasAccess(uBoardLab)) {
+            if(uBoardoverride == null) {
                 uBoardLab.createPermissionOverride(member)
                         .setAllow(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION)
                         .queue();
@@ -66,30 +76,18 @@ public class PluginLabModule {
 
     public static void removePluginLabAccess(Member member, String reward) {
         if(reward.equalsIgnoreCase("Traveler") && (uPunLab != null & uRegionsLab != null)) {
-            uPunLab.putPermissionOverride(member).clear(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION).queue();
             uPunLab.getPermissionOverride(member).delete().queue();
-
-            uRegionsLab.putPermissionOverride(member).clear(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION).queue();
             uRegionsLab.getPermissionOverride(member).delete().queue();
-
         }
 
         if(reward.equalsIgnoreCase("Adventurer") && (uPermsLab != null && uCLab != null)) {
-            uPermsLab.putPermissionOverride(member).clear(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION).queue();
             uPermsLab.getPermissionOverride(member).delete().queue();
-
-            uCLab.putPermissionOverride(member).clear(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION).queue();
             uCLab.getPermissionOverride(member).delete().queue();
         }
 
         if(reward.equalsIgnoreCase("Pioneer") && (uEcoLab != null & insaneShopsLab != null && uBoardLab != null)) {
-            uEcoLab.putPermissionOverride(member).clear(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION).queue();
             uEcoLab.getPermissionOverride(member).delete().queue();
-
-            insaneShopsLab.putPermissionOverride(member).clear(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION).queue();
             insaneShopsLab.getPermissionOverride(member).delete().queue();
-
-            uBoardLab.putPermissionOverride(member).clear(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_READ, Permission.MESSAGE_ADD_REACTION).queue();
             uBoardLab.getPermissionOverride(member).delete().queue();
         }
     }

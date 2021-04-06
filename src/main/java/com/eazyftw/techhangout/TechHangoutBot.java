@@ -1,6 +1,7 @@
 package com.eazyftw.techhangout;
 
 import com.eazyftw.techhangout.module.ModulesManager;
+import com.eazyftw.techhangout.module.modules.PluginLabModule;
 import com.eazyftw.techhangout.objects.ChannelQuery;
 import com.eazyftw.techhangout.objects.Query;
 import com.eazyftw.techhangout.patreon.PatreonManager;
@@ -72,6 +73,14 @@ public class TechHangoutBot {
         log("Successfully started!");
 
         jda.addEventListener(modulesManager);
+
+        for(Member all : PATREON_GUILD.getMembers()) {
+            Role traveler = PATREON_GUILD.getRoleById(788907412744044565L);
+            if(all.getRoles().contains(traveler)) {
+                Member member = SUPPORT_GUILD.getMemberById(all.getId());
+                PluginLabModule.givePluginLabAccess(member, "Traveler");
+            }
+        }
     }
 
     public static JDA getJDA() {
